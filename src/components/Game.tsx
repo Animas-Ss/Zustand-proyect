@@ -21,9 +21,9 @@ const Question = ({info} : {info : QuestionsType }) => {
     const getBackgroundColor = (index: number) => {
         const { userSelecterAnswer, correctAnswer } = info;
         //usuario no selecciona nada todavia
-        if(userSelecterAnswer == null) return 'transparent';
+        if(userSelecterAnswer == null) return '';
         //si ya selecciono pero la respuesta es incorrecta
-        if(index != correctAnswer && index !== userSelecterAnswer) return 'transparent'
+        if(index != correctAnswer && index !== userSelecterAnswer) return ''
         //si es la seleccion correcta
         if(index === correctAnswer) return 'green'
         //si la seleccion del usuario esta , pero no es correcta
@@ -34,23 +34,24 @@ const Question = ({info} : {info : QuestionsType }) => {
 
   return (
     <div className=" w-[600px] p-4 flex gap-3 flex-col rounded-md">
-        <div className="bg-white w-full p-4">
-            <h3>{info.question}</h3>
+        <div className="w-full p-4 bg-[rgba(255,255,255,0.2)] rounded-lg border-[0.5px]">
+            <h3 className="text-black text-xl text-center font-bold">{info.question}</h3>
         </div>
-        <div>
+        <div className=" rounded-xl overflow-hidden">
             <SyntaxHighLihgter language="javascript" style={gruvboxDark}>
                 {info.code}
             </SyntaxHighLihgter>
         </div>
-        <div className="">
-            <ul>
+        <div className="pb-4">
+            <ul className=" w-full grid grid-cols-2 gap-2">
                 {info.answers.map((answer, index) => (
                     <li key={index}>
-                        <button className="w-full p-3 border-b-[1px] border-gray-700 hover:bg-slate-500" style={{background:`${getBackgroundColor(index)}`}} onClick={createHandleClick(index)} disabled={info.userSelecterAnswer != null}>{answer}</button>
+                        <button className="w-full py-2 rounded-xl border-[1px] bg-[rgba(255,255,255,0.2)] hover:bg-[rgba(255,255,255,0.5)] text-[1em] font-bold" style={{background:`${getBackgroundColor(index)}`}} onClick={createHandleClick(index)} disabled={info.userSelecterAnswer != null}>{answer}</button>
                     </li>
                 ))}
             </ul>
         </div>
+        <Footer/>
     </div>
   )
 }
@@ -74,7 +75,6 @@ const Game = () => {
             <button onClick={goNextQuestion} disabled={currentQuestions > questions.length -1} className="bg-blue-300 w-[20px] h-[20px] rounded-full flex items-center justify-center">{">"}</button>
         </div>
         <Question info={questionInfo}/>
-        <Footer/>
     </>
   )
 }

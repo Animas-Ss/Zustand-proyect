@@ -18,11 +18,11 @@ export const Footer = () => {
         else incorrect ++
     })
     return(
-        <footer>
+        <footer className="flex justify-between w-full px-4">
             <strong>
                 {`✔ ${correct} Correctas - ❌ ${incorrect} incorrectas - ❓ ${unanswered} faltantes `}
             </strong>
-            <button onClick={reset} className="bg-red-900 px-3 py-2 rounded-full">Reset</button>
+            <button onClick={reset} className="text-slate-200 hover:text-black bg-red-500 rounded-full px-2">reset</button>
         </footer>
     )
 
